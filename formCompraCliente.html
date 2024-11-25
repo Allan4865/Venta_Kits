@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Compra</title>
+    <link rel="stylesheet" href="estiloCompra.css">
+</head>
+<body>
+    <a href="index.html">
+        <div class="header"> 
+            <img src="imagenes/MARCA-CANS-Y-ROBOTIK-WORLD.png" alt="logo">
+            <h1>Registro de Compra</h1>
+        </div>    
+    </a>
+
+    <div class="container">
+
+        <form id="purchase-form" method="POST">
+            <div class="form">
+                <div class="headerForm">Datos del Cliente</div>
+                <div class="inputs">
+                    <div class="input-container">
+                        <input type="text" id="cedula" name="cedula" class="input" placeholder="Cédula:" required>
+                    </div>
+                    <div class="input-container">
+                        <input type="text" id="nombre" name="nombre" class="input" placeholder="Nombre:" required>
+                    </div>
+                    <div class="input-container">
+                        <input type="text" id="direccion" name="direccion" class="input" placeholder="Dirección:">
+                    </div>
+                    <div class="input-container">
+                        <input type="text" id="telefono" name="telefono" class="input" placeholder="Teléfono:">
+                    </div>
+                    <div class="input-container">
+                        <input type="email" id="correo" name="correo" class="input" placeholder="Correo Electrónico:">
+                    </div>
+                    <div class="input-container">
+                        <select name="unidadEducativa" class="input" required>
+                            <option value="" disabled selected>Seleccione un colegio</option>
+                        </select>
+                    </div>
+                    <label class="labelForm">¿No encuentra su unidad educativa?</label>
+                    <button type="button" onclick="continuarSinUnidadEducativa()" class="boton-sinColegio">Continue sin agregar una unidad educativa.</button>
+                </div>
+                <button type="submit" class="sigin-btn">COMPRAR</button>
+            </div>
+        
+            <!-- Recuadro de detalles del producto -->
+            <div class="product-details">
+                <h3 id="product-name">Nombre del Producto</h3>
+                <p id="product-price">Precio: $0.00</p>
+            </div>
+        
+            <!-- Campo oculto para enviar el monto -->
+            <input type="hidden" id="product-price-hidden" name="monto">
+        </form>
+
+    </div>
+
+    <script>
+        function continuarSinUnidadEducativa() {
+            document.querySelector('select[name="unidadEducativa"]').value = "No aplica";
+        }
+
+        function updateProductDetails() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const productName = urlParams.get('nombre_modelo_kit');
+            const productPrice = fetchProductPrice(productName); // Función para obtener el precio del producto
+
+            document.getElementById('product-name').innerText = productName;
+            document.getElementById('product-price').innerText = 'Precio: $${productPrice}';
+        }
+
+        function fetchProductPrice(modelName) {
+            return '100.00'; // Ejemplo de precio
+        }
+
+        window.onload = updateProductDetails;
+    </script>
+    <script src="compra.js"></script>
+
+</body>
+</html>
